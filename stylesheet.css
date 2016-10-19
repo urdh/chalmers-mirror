@@ -1,0 +1,150 @@
+html{
+    background: #222121;
+    padding: 2em;
+}
+
+body{
+    width: 90%;
+    max-width: 40em;
+    margin: 0 auto;
+    background: #E8E5E7;
+    padding: 1em;
+    border: .5ex solid #737171;
+}
+h1{
+    text-align: center;
+    font: 4em/2 Baskerville, serif;
+    margin-bottom: -.25em;
+    margin-top: -.5em;
+}
+h2{
+    font: 1.5em/1.5 Baskerville, serif;
+    clear: both;
+}
+p, table, dl{
+    font: .8em/1.2 Georgia, serif;
+}
+p{
+    text-align: justify;
+}
+table{
+    margin: 1em auto;
+}
+a:hover{
+    color: #c00;
+}
+th{
+    background-color: black;
+    color: white;
+}
+td{
+    padding: .25em .5em;
+}
+dt{
+    font-weight: bold;
+    display: inline;
+}
+dt:after{
+    font-weight: normal;
+    content: ' — ';
+}
+dd{
+    display: inline;
+    margin-left: 0;
+}
+dd:after{
+    white-space: pre;
+    content: '\A';
+}
+footer p{
+    font-style: oblique;
+    font-size: small;
+    margin-top: 4em;
+    text-align: center;
+}
+.vcard{
+    width: 30em;
+    background: #eee;
+    padding: 1em;
+    margin: 2em auto;
+    border-color: black;
+    border-style: solid;
+    border-width: 5px 0;
+}
+.photo{
+    float: left;
+    margin-right: 1em;
+    border: 1px solid #333;
+}
+.vcard p{
+    margin: 0;
+}
+.fn{
+    font: 2em Baskerville, Georgia, "Times New Roman", serif;
+    color: #333;
+    text-decoration: none;
+}
+.fn:hover{
+    color: #c00;
+}
+.email{
+    width: 16px;
+    height: 16px;
+    float: right;
+    overflow: hidden;
+    margin-top: 1em;
+    background-repeat: no-repeat;
+    text-indent: -1789em;
+    padding: 2px;
+    background-position: center center;
+    background-image: url('img/email.png');
+}
+.tel{
+    margin-top: .75em !important;
+}
+.social .url{
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    margin: 0;
+    margin-top: 1em;
+    display: inline-block;
+    background-repeat: no-repeat;
+    text-indent: -1789em;
+    padding: 2px;
+    background-position: center center;
+}
+.social .url:hover, .email:hover{
+    border-color: #c00;
+}
+#jabber{ background-image: url('img/xmpp.png'); }
+#msn{ background-image: url('img/msn.png'); }
+#linkedin{ background-image: url('img/linkedin.png'); }
+#lastfm{ background-image: url('img/lastfm.png'); }
+#github{ background-image: url('img/github.png'); }
+#twitter{ background-image: url('img/twitter.png'); }
+#facebook{ background-image: url('img/facebook.png'); }
+#gplus{ background-image: url('img/gplus.png'); }
+#stackoverflow{ background-image: url('img/stackoverflow.png'); }
+#pinboard{ background-image: url('img/pinboard.png'); }
+#px500{ background-image: url('img/500px.png'); }
+#flickr{ background-image: url('img/flickr.png'); }
+#blog{ background-image: url('img/blog.png'); }
+
+.note {
+    font-style: italic;
+    font-size: 0.75em;
+    padding-top: 2ex;
+    margin-bottom: -1ex;
+}
+
+pre{
+    width: 60em;
+    position: relative;
+    margin-left: -31em;
+    left: 50%;
+    margin-top: 4em;
+    padding: 1em;
+    background-color: #eee;
+    font-size: smaller;
+}
