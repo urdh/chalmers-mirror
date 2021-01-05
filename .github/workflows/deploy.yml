@@ -1,0 +1,46 @@
+name: "Build & Deploy"
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Vercel
+    env:
+      PRODUCTION: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    steps:
+      - uses: bobheadxi/deployments@v0.4.3
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: ${{ (env.PRODUCTION == true) && 'Production' || 'Preview' }}
+          transient: ${{ (env.PRODUCTION != true) }}
+          auto_inactive: ${{ (env.PRODUCTION == true) }}
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+      - name: Deploy using Vercel CLI 
+        env:
+          VERCEL_PROD: ${{ (env.PRODUCTION == true) && '--prod' || '' }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+            echo 'VERCEL_PREVIEW_URL<<EOF' >> $GITHUB_ENV
+            vercel --token=${{ secrets.VERCEL_TOKEN }} --confirm ${{ env.VERCEL_PROD }} deploy >> $GITHUB_ENV
+            echo -e '\nEOF' >> $GITHUB_ENV
+      - uses: bobheadxi/deployments@v0.4.3
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env_url: ${{ env.VERCEL_PREVIEW_URL }}
