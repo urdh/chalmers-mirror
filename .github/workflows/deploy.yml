@@ -1,10 +1,9 @@
-name: "Build & Deploy"
+name: "Deploy to Vercel"
 
 on:
   push:
     branches: [master]
-  pull_request:
-    branches: [master]
+  workflow_dispatch:
   
 jobs:
   deploy:
@@ -13,14 +12,6 @@ jobs:
     env:
       PRODUCTION: ${{ github.event_name == 'push' }}
     steps:
-      - uses: bobheadxi/deployments@v0.4.3
-        id: deployment
-        with:
-          step: start
-          token: ${{ secrets.GITHUB_TOKEN }}
-          env: ${{ (env.PRODUCTION == 'true') && 'Production' || 'Preview' }}
-          transient: ${{ (env.PRODUCTION != 'true') }}
-          auto_inactive: ${{ (env.PRODUCTION == 'true') }}
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
@@ -36,11 +27,8 @@ jobs:
             echo 'VERCEL_PREVIEW_URL<<EOF' >> $GITHUB_ENV
             vercel --token=${{ secrets.VERCEL_TOKEN }} --confirm ${{ env.VERCEL_PROD }} deploy >> $GITHUB_ENV
             echo -e '\nEOF' >> $GITHUB_ENV
-      - uses: bobheadxi/deployments@v0.4.3
-        if: always()
+      - uses: peter-evans/commit-comment@v1
+        if: success()
         with:
-          step: finish
           token: ${{ secrets.GITHUB_TOKEN }}
-          status: ${{ job.status }}
-          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-          env_url: ${{ env.VERCEL_PREVIEW_URL }}
+          body: Deployed to **${{ env.VERCEL_PREVIEW_URL }}**.
